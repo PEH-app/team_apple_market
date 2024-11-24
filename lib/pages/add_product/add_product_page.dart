@@ -76,10 +76,10 @@ class _AddProductPageState extends State<AddProductPage> {
                   if (value == null || value.isEmpty) {
                     return '이미지 URL을 입력해주세요.';
                   }
-                  // 간단한 URL 유효성 검사
-                  if (!Uri.parse(value).isAbsolute) {
-                    return '유효한 URL을 입력해주세요.';
-                  }
+                  //간단한 URL 유효성 검사
+                  // if (!Uri.parse(value).isAbsolute) {
+                  //   return '유효한 URL을 입력해주세요.';
+                  // }
                   return null;
                 },
                 onSaved: (value) {

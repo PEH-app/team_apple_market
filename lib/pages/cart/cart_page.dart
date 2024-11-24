@@ -13,6 +13,10 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartProducts = Provider.of<ProductProvider>(context).cartProducts;
+    final totalPrice = cartProducts.fold<int>(
+      0,
+      (sum, product) => sum + product.price,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -64,6 +68,58 @@ class CartPage extends StatelessWidget {
                 );
               },
             ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, -2),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '총 금액: $totalPrice 만원',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            ElevatedButton(
+              onPressed: cartProducts.isEmpty
+                  ? null
+                  : () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('결제 기능 준비 중입니다.'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 16,
+                ),
+                backgroundColor: Colors.blue,
+              ),
+              child: const Text(
+                '결제하기',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 // lib/pages/product_list/project_list_page.dart
 
 import 'package:apple_market/pages/add_product/add_product_page.dart';
+import 'package:apple_market/pages/cart/cart_page.dart';
 import 'package:apple_market/pages/product_list/product/product.dart';
 import 'package:apple_market/pages/product_list/product/product_provider.dart';
 import 'package:apple_market/pages/product_list/widgets/brand_dropdown.dart';
@@ -43,8 +44,12 @@ class _ProjectListPageState extends State<ProjectListPage> {
           actions: <Widget>[
             IconButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('장바구니 버튼 클릭됨')),
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //   const SnackBar(content: Text('장바구니 버튼 클릭됨')),
+                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CartPage()),
                 );
               },
               icon: const Icon(Icons.shopping_cart_outlined),
