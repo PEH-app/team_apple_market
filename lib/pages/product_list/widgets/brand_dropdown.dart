@@ -1,7 +1,6 @@
 // lib/product_widgets/brand_dropdown.dart
 
 import 'package:flutter/material.dart';
-
 import '../product/product.dart';
 
 class BrandDropdown extends StatelessWidget {

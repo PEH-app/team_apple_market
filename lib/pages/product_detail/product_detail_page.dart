@@ -4,7 +4,6 @@ import 'package:apple_market/pages/cart/cart_page.dart';
 import 'package:apple_market/pages/product_list/product/product.dart';
 import 'package:apple_market/pages/product_list/product/product_provider.dart';
 import 'package:apple_market/pages/product_list/widgets/data_utils.dart';
-import 'package:apple_market/pages/product_list/widgets/product_image.dart';
 import 'package:apple_market/pages/product_list/widgets/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -81,11 +80,7 @@ class ProductDetailPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildProductImage(),
-
-          // Text('브랜드: ${product.brand.toString().split('.').last}',
-          //     style: const TextStyle(fontSize: 18)),
           const SizedBox(height: 8),
-
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Row(children: [
@@ -107,32 +102,12 @@ class ProductDetailPage extends StatelessWidget {
               ),
             ]),
           ),
-
           _line(),
           SizedBox(height: 16),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.end,
-          //   children: [
-          //     Text('카테고리 >', style: TextStyle(color: Colors.grey[600])),
-          //     Padding(
-          //       padding: EdgeInsets.symmetric(horizontal: 16.0),
-          //       child: Container(
-          //         padding: EdgeInsets.all(7.0),
-          //         decoration: BoxDecoration(
-          //           color: Colors.pink[100],
-          //           borderRadius: BorderRadius.circular(8),
-          //         ),
-          //         child: Text(product.brand.toString().split('.').last,
-          //             style: TextStyle(color: Colors.pink[800])),
-          //       ),
-          //     ),
-          //   ],
-          // ),
           SizedBox(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // Text('폰상태 >', style: TextStyle(color: Colors.grey[600])),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.0),
                 child: Container(
@@ -141,7 +116,7 @@ class ProductDetailPage extends StatelessWidget {
                     color: Colors.pink[100],
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(product.brand.toString().split('.').last,
+                  child: Text(product.brand.name,
                       style: TextStyle(color: Colors.pink[800])),
                 ),
               ),
@@ -153,10 +128,11 @@ class ProductDetailPage extends StatelessWidget {
                     color: Colors.pink[100],
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(product.grade.toString().split('.').last,
+                  child: Text(product.grade.name,
                       style: TextStyle(color: Colors.pink[800])),
                 ),
               ),
+              SizedBox(width: 15),
             ],
           ),
           SizedBox(height: 16),

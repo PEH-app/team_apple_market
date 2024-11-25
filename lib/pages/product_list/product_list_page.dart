@@ -122,31 +122,6 @@ class _ProjectListPageState extends State<ProjectListPage> {
           ),
         ],
       ),
-      // floatingActionButton:
-      //     //Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
-      //     //const SizedBox(width: 1),
-      //     FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.pushNamed(context, AddProductPage.routeName);
-      //   },
-      //   backgroundColor: Colors.transparent,
-      //   // label: const Text('상품등록',
-      //   //     style: TextStyle(
-      //   //         color: Colors.white,
-      //   //         fontSize: 18,
-      //   //         fontWeight: FontWeight.bold)),
-      //   // icon: const Icon(
-      //   //   Icons.add,
-      //   //   color: Colors.white,
-      //   // ),
-      //   child: const Icon(
-      //     Icons.add_circle,
-      //     color: Colors.red,
-      //   ),
-      // ),
-      // // const SizedBox(
-      // //   width: 30,
-      // // )
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, AddProductPage.routeName);

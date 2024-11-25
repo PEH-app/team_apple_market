@@ -7,8 +7,6 @@ import 'package:apple_market/pages/product_list/widgets/product_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:cached_network_image/cached_network_image.dart';
-
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
 
@@ -34,11 +32,6 @@ class CartPage extends StatelessWidget {
                 final product = cartProducts[index];
                 return ListTile(
                   leading: ProductImage(product: product),
-                  //     placeholder: (context, url) =>
-                  //         const CircularProgressIndicator(),
-                  //     errorWidget: (context, url, error) =>
-                  //         const Icon(Icons.broken_image, size: 50),
-                  //   ),
                   title: Text(product.name),
                   subtitle: Text(DataUtils.calcToWon(product.price)),
                   trailing: IconButton(

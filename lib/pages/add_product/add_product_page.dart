@@ -34,7 +34,8 @@ class _AddProductPageState extends State<AddProductPage> {
         Provider.of<ProductProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text('상품정보'),
+        backgroundColor: Colors.transparent,
+        title: Text('상품 등록'),
         leading: IconButton(
           icon: Icon(Icons.close),
           onPressed: () => Navigator.pop(context),
@@ -51,39 +52,64 @@ class _AddProductPageState extends State<AddProductPage> {
                 // 이미지 선택 섹션
                 Consumer<ProductProvider>(
                   builder: (context, provider, _) {
-                    return GestureDetector(
-                      onTap: () async {
-                        final ImagePicker picker = ImagePicker();
-                        final XFile? image =
-                            await picker.pickImage(source: ImageSource.gallery);
-                        if (image != null) {
-                          setState(() {
-                            _imageUrl = image.path;
-                          });
-                        }
-                      },
-                      child: Container(
-                        height: 300,
-                        width: 400,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(8),
-                          image: _imageUrl.isNotEmpty
-                              ? DecorationImage(
-                                  image: FileImage(File(_imageUrl)),
-                                  fit: BoxFit.cover,
+                    return Column(
+                      children: [
+                        SizedBox(
+                          height: 300,
+                          child: _imageUrl.isEmpty
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.asset(
+                                    'assets/images/default_image.jpg',
+                                    height: 400,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
                                 )
-                              : null,
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.file(
+                                    File(_imageUrl),
+                                    height: 400,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                         ),
-                        child: Stack(
-                          children: [
-                            if (_imageUrl.isEmpty)
-                              Center(
-                                  child: Icon(Icons.add_a_photo,
-                                      color: Colors.grey, size: 50)),
-                          ],
+                        SizedBox(height: 16),
+                        GestureDetector(
+                          onTap: () async {
+                            final ImagePicker picker = ImagePicker();
+                            final XFile? image = await picker.pickImage(
+                                source: ImageSource.gallery);
+                            if (image != null) {
+                              setState(() {
+                                _imageUrl = image.path;
+                              });
+                            }
+                          },
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.add_a_photo, color: Colors.grey),
+                                  SizedBox(width: 8),
+                                  Text('사진 추가하기',
+                                      style:
+                                          TextStyle(color: Colors.grey[600])),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        SizedBox(height: 16),
+                      ],
                     );
                   },
                 ),
@@ -170,7 +196,7 @@ class _AddProductPageState extends State<AddProductPage> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 10), // 드롭다운 사이의 간격
+                    SizedBox(width: 10),
                     Expanded(
                       child: DropdownButtonFormField2<PhoneGrade>(
                         isExpanded: true,
@@ -210,29 +236,6 @@ class _AddProductPageState extends State<AddProductPage> {
                   ],
                 ),
 
-                //SizedBox(height: 20),
-
-                // DropdownButtonFormField2<PhoneGrade>(
-                //   decoration: const InputDecoration(labelText: '폰 상태'),
-                //   items: PhoneGrade.values.map((grade) {
-                //     return DropdownMenuItem<PhoneGrade>(
-                //       value: grade,
-                //       child:
-                //           Text(grade.toString().split('.').last.toUpperCase()),
-                //     );
-                //   }).toList(),
-                //   onChanged: (PhoneGrade? newGrade) {
-                //     setState(() {
-                //       _selectedGrade = newGrade;
-                //     });
-                //   },
-                //   validator: (value) {
-                //     if (value == null) {
-                //       return '폰 상태를 선택해주세요.';
-                //     }
-                //     return null;
-                //   },
-                // ),
                 SizedBox(height: 20),
                 // 설명 입력
                 TextField(
@@ -252,40 +255,6 @@ class _AddProductPageState extends State<AddProductPage> {
                 ),
 
                 SizedBox(height: 20),
-
-                // 휴대폰 타입 토글
-                // Consumer<ProductProvider>(
-                //   builder: (context, provider, _) {
-                //     final List<bool> isSelected = [
-                //       _selectedBrand == PhoneBrand.iPhone,
-                //       _selectedBrand == PhoneBrand.Samsung,
-                //     ];
-
-                //     return ToggleButtons(
-                //       constraints: BoxConstraints.expand(
-                //         width:
-                //             MediaQuery.of(context).size.width / 2 - 24, // 패딩 고려
-                //         height: 40,
-                //       ),
-                //       borderRadius: BorderRadius.circular(8),
-                //       selectedColor: Colors.white,
-                //       fillColor: Colors.blue,
-                //       color: Colors.grey,
-                //       isSelected: isSelected,
-                //       onPressed: (index) {
-                //         setState(() {
-                //           _selectedBrand = index == 0
-                //               ? PhoneBrand.iPhone
-                //               : PhoneBrand.Samsung;
-                //         });
-                //       },
-                //       children: const [
-                //         Text('아이폰'),
-                //         Text('삼성'),
-                //       ],
-                //     );
-                //   },
-                // ),
               ],
             ),
           ),
@@ -309,8 +278,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 grade: _selectedGrade!,
                 likeCount: 0,
               );
-              // 등록 로직 구현
-              // 예: context.read<ProductProvider>().addProduct(...);
+
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('제품이 성공적으로 등록되었습니다.')),
               );

@@ -7,8 +7,6 @@ import 'package:apple_market/pages/product_list/widgets/product_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:cached_network_image/cached_network_image.dart';
-
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
