@@ -270,6 +270,9 @@ class _AddProductPageState extends State<AddProductPage> {
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
+              if (_imageUrl.isEmpty) {
+                _imageUrl = 'assets/images/default_image.jpg';
+              }
               productProvider.addProduct(
                 name: _name,
                 price: _price,
