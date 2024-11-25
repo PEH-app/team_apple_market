@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:apple_market/pages/product_list/product/product.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +42,7 @@ class _AddProductPageState extends State<AddProductPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          padding: EdgeInsets.symmetric(horizontal: 25.0),
           child: Form(
             key: _formKey,
             child: Column(
@@ -105,64 +106,143 @@ class _AddProductPageState extends State<AddProductPage> {
                     _name = value!;
                   },
                 ),
-
                 SizedBox(height: 20),
-                // 브랜드 선택 드롭다운
-                DropdownButtonFormField<PhoneBrand>(
-                  decoration: const InputDecoration(labelText: '브랜드'),
-                  items: PhoneBrand.values.map((brand) {
-                    return DropdownMenuItem<PhoneBrand>(
-                      value: brand,
-                      child:
-                          Text(brand.toString().split('.').last.toUpperCase()),
-                    );
-                  }).toList(),
-                  onChanged: (PhoneBrand? newBrand) {
-                    setState(() {
-                      _selectedBrand = newBrand;
-                    });
-                  },
+                // 가격 입력
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: '가격',
+                    prefixIcon: Text('₩ ', style: TextStyle(fontSize: 16)),
+                    prefixIconConstraints:
+                        BoxConstraints(minWidth: 0, minHeight: 0),
+                    suffixText: '원',
+                    border: UnderlineInputBorder(),
+                  ),
                   validator: (value) {
-                    if (value == null) {
-                      return '브랜드를 선택해주세요.';
+                    if (value == null || value.isEmpty) {
+                      return '가격을 입력해주세요.';
+                    }
+                    if (int.tryParse(value) == null) {
+                      return '유효한 숫자를 입력해주세요.';
                     }
                     return null;
                   },
+                  onSaved: (value) {
+                    _price = int.parse(value!);
+                  },
                 ),
                 SizedBox(height: 20),
-
-                //폰상태 드롭다운
-                DropdownButtonFormField<PhoneGrade>(
-                  decoration: const InputDecoration(labelText: '폰 상태'),
-                  items: PhoneGrade.values.map((grade) {
-                    return DropdownMenuItem<PhoneGrade>(
-                      value: grade,
-                      child:
-                          Text(grade.toString().split('.').last.toUpperCase()),
-                    );
-                  }).toList(),
-                  onChanged: (PhoneGrade? newGrade) {
-                    setState(() {
-                      _selectedGrade = newGrade;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null) {
-                      return '폰 상태를 선택해주세요.';
-                    }
-                    return null;
-                  },
+                // 브랜드와 폰 상태 드롭다운을 포함하는 Row
+                Row(
+                  children: [
+                    Expanded(
+                      child: DropdownButtonFormField2<PhoneBrand>(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        hint: Text('브랜드', style: TextStyle(fontSize: 15)),
+                        items: PhoneBrand.values.map((brand) {
+                          return DropdownMenuItem<PhoneBrand>(
+                            value: brand,
+                            child: Text(brand.name),
+                          );
+                        }).toList(),
+                        onChanged: (PhoneBrand? newBrand) {
+                          setState(() {
+                            _selectedBrand = newBrand;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return '브랜드를 선택해주세요.';
+                          }
+                          return null;
+                        },
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.only(right: 8),
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10), // 드롭다운 사이의 간격
+                    Expanded(
+                      child: DropdownButtonFormField2<PhoneGrade>(
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        hint: Text('핸드폰 상태', style: TextStyle(fontSize: 15)),
+                        items: PhoneGrade.values.map((grade) {
+                          return DropdownMenuItem<PhoneGrade>(
+                            value: grade,
+                            child: Text(grade.name),
+                          );
+                        }).toList(),
+                        onChanged: (PhoneGrade? newGrade) {
+                          setState(() {
+                            _selectedGrade = newGrade;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return '폰 상태를 선택해주세요.';
+                          }
+                          return null;
+                        },
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.only(right: 8),
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+
+                //SizedBox(height: 20),
+
+                // DropdownButtonFormField2<PhoneGrade>(
+                //   decoration: const InputDecoration(labelText: '폰 상태'),
+                //   items: PhoneGrade.values.map((grade) {
+                //     return DropdownMenuItem<PhoneGrade>(
+                //       value: grade,
+                //       child:
+                //           Text(grade.toString().split('.').last.toUpperCase()),
+                //     );
+                //   }).toList(),
+                //   onChanged: (PhoneGrade? newGrade) {
+                //     setState(() {
+                //       _selectedGrade = newGrade;
+                //     });
+                //   },
+                //   validator: (value) {
+                //     if (value == null) {
+                //       return '폰 상태를 선택해주세요.';
+                //     }
+                //     return null;
+                //   },
+                // ),
                 SizedBox(height: 20),
                 // 설명 입력
                 TextField(
                   maxLength: 2000,
-                  maxLines: 10,
+                  maxLines: 7,
                   decoration: InputDecoration(
                     hintText:
                         '브랜드, 모델명, 구매 시기, 하자 유무 등 \n상품 설명을 최대한 자세히 적어주세요.',
                     hintStyle: TextStyle(color: Colors.grey),
-                    focusColor: Colors.grey[50],
+                    focusColor: Colors.red[100],
                     filled: true,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -206,31 +286,6 @@ class _AddProductPageState extends State<AddProductPage> {
                 //     );
                 //   },
                 // ),
-
-                // 가격 입력
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: '가격',
-                    prefixIcon: Text('₩ ', style: TextStyle(fontSize: 16)),
-                    prefixIconConstraints:
-                        BoxConstraints(minWidth: 0, minHeight: 0),
-                    suffixText: '원',
-                    border: UnderlineInputBorder(),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return '가격을 입력해주세요.';
-                    }
-                    if (int.tryParse(value) == null) {
-                      return '유효한 숫자를 입력해주세요.';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    _price = int.parse(value!);
-                  },
-                ),
               ],
             ),
           ),
