@@ -7,10 +7,9 @@ import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../register/register_page.dart';
 import '../product_list/product_list_page.dart';
-import '../../providers/user_provider.dart';
 import 'widgets/input_field.dart';
 import 'widgets/loading_indicator.dart';
-import 'widgets/form_button.dart'; // FormButton 임포트
+import 'widgets/form_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -20,22 +19,22 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController useridController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  String? emailError;
+  String? useridError;
   String? passwordError;
 
   @override
   void dispose() {
-    emailController.dispose();
+    useridController.dispose();
     passwordController.dispose();
     super.dispose();
   }
 
   void resetErrorText() {
     setState(() {
-      emailError = null;
+      useridError = null;
       passwordError = null;
     });
   }
@@ -43,14 +42,10 @@ class _LoginPageState extends State<LoginPage> {
   bool validate() {
     resetErrorText();
 
-    RegExp emailExp = RegExp(
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
-
     bool isValid = true;
-    if (emailController.text.isEmpty ||
-        !emailExp.hasMatch(emailController.text)) {
+    if (useridController.text.isEmpty) {
       setState(() {
-        emailError = '유효하지 않은 이메일 주소입니다.';
+        useridError = '아이디를 입력해주세요.';
       });
       isValid = false;
     }
@@ -67,26 +62,10 @@ class _LoginPageState extends State<LoginPage> {
 
   void submit() async {
     if (validate()) {
-      final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      bool success = await authProvider.login(
-          emailController.text, passwordController.text);
-
-      if (success) {
-        final userProvider = Provider.of<UserProvider>(context, listen: false);
-        if (authProvider.user != null) {
-          userProvider.setUserProfile(authProvider.user!);
-        }
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const ProductListPage()),
-        );
-      } else {
-        final error = authProvider.errorMessage;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error ?? '로그인에 실패했습니다.')),
-        );
-      }
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const ProductListPage()),
+      );
     }
   }
 
@@ -110,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: screenHeight * .01),
             Text(
-              '계속하려면 로그인하세요!',
+              '로그인 해주세요!',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.black.withOpacity(.6),
@@ -118,15 +97,15 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: screenHeight * .12),
             InputField(
-              labelText: '이메일',
+              labelText: '아이디',
               keyboardType: TextInputType.emailAddress,
-              controller: emailController,
-              errorText: emailError,
-              icon: Icons.email, // 아이콘 추가
+              controller: useridController,
+              errorText: useridError,
+              icon: Icons.email,
               onChanged: (value) {
-                if (emailError != null) {
+                if (useridError != null) {
                   setState(() {
-                    emailError = null;
+                    useridError = null;
                   });
                 }
               },
@@ -137,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
               obscureText: true,
               controller: passwordController,
               errorText: passwordError,
-              icon: Icons.lock, // 아이콘 추가
+              icon: Icons.lock,
               onChanged: (value) {
                 if (passwordError != null) {
                   setState(() {
@@ -150,9 +129,7 @@ class _LoginPageState extends State<LoginPage> {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () {
-                  // 비밀번호 찾기 기능 구현 가능
-                },
+                onPressed: () {},
                 child: const Text(
                   '비밀번호를 잊으셨나요?',
                   style: TextStyle(
@@ -168,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                 ? const LoadingIndicator()
                 : FormButton(
                     text: '로그인',
-                    onPressed: submit, // 버튼을 눌렀을 때 동작
+                    onPressed: submit,
                   ),
             SizedBox(
               height: screenHeight * .15,

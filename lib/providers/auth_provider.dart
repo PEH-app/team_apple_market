@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/login/model/user_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-import '../pages/login/model/user_model.dart';
 
 class AuthProvider with ChangeNotifier {
   UserModel? _user;
@@ -59,7 +58,6 @@ class AuthProvider with ChangeNotifier {
       );
 
       if (response.statusCode == 201) {
-        // 일반적으로 회원가입 성공 시 201 상태 코드
         _user = UserModel.fromJson(jsonDecode(response.body));
         _isLoading = false;
         notifyListeners();

@@ -34,6 +34,7 @@ dependencies:
   provider : any
   cached_network_image: any
   http: any
+ 
 
 dev_dependencies:
   flutter_test:
