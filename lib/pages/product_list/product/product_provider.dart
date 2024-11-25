@@ -9,32 +9,36 @@ class ProductProvider with ChangeNotifier {
   List<Product> _products = [
     Product(
         id: 10000000,
-        name: '아이폰',
-        price: 120,
+        name: '아이폰 팔아요',
+        price: 1200000,
         brand: PhoneBrand.iPhone,
-        imageUrl:
-            'https://kream-phinf.pstatic.net/MjAyMzEwMTFfMjE2/MDAxNjk2OTg4MzIwOTE0.dg6UAYIYf5oa8XlYs8XJMLoLeFgcgX9le6x_hprkZUwg.MxmZvpMu_raB8BjVx8VGGimyxGwp4ojOryS8dBYXJ-gg.JPEG/a_28596be85bbd44a0b89702b95c060fb6.jpg?type=l_webp'),
+        imageUrl: 'assets/images/sam_phone2.jpg',
+        grade: PhoneGrade.UNOPENED,
+        likeCount: 2),
     Product(
         id: 200000000,
         name: '삼성폴더폰',
-        price: 12,
+        price: 550000,
         brand: PhoneBrand.Samsung,
-        imageUrl:
-            'https://kream-phinf.pstatic.net/MjAyMzEwMTFfMjE2/MDAxNjk2OTg4MzIwOTE0.dg6UAYIYf5oa8XlYs8XJMLoLeFgcgX9le6x_hprkZUwg.MxmZvpMu_raB8BjVx8VGGimyxGwp4ojOryS8dBYXJ-gg.JPEG/a_28596be85bbd44a0b89702b95c060fb6.jpg?type=l_webp'),
+        imageUrl: 'assets/images/sam_phone.jpg',
+        grade: PhoneGrade.B_GRADE,
+        likeCount: 6),
     Product(
         id: 300000000,
         name: '삼성폴더폰',
-        price: 12,
+        price: 750000,
         brand: PhoneBrand.Samsung,
-        imageUrl:
-            'https://kream-phinf.pstatic.net/MjAyMzEwMTFfMjE2/MDAxNjk2OTg4MzIwOTE0.dg6UAYIYf5oa8XlYs8XJMLoLeFgcgX9le6x_hprkZUwg.MxmZvpMu_raB8BjVx8VGGimyxGwp4ojOryS8dBYXJ-gg.JPEG/a_28596be85bbd44a0b89702b95c060fb6.jpg?type=l_webp'),
+        imageUrl: 'assets/images/sam_phone2.jpg',
+        grade: PhoneGrade.S_GRADE,
+        likeCount: 10),
     Product(
         id: 40000000,
         name: '삼성폴더폰',
-        price: 12,
+        price: 380000,
         brand: PhoneBrand.Samsung,
-        imageUrl:
-            'https://kream-phinf.pstatic.net/MjAyMzEwMTFfMjE2/MDAxNjk2OTg4MzIwOTE0.dg6UAYIYf5oa8XlYs8XJMLoLeFgcgX9le6x_hprkZUwg.MxmZvpMu_raB8BjVx8VGGimyxGwp4ojOryS8dBYXJ-gg.JPEG/a_28596be85bbd44a0b89702b95c060fb6.jpg?type=l_webp')
+        imageUrl: 'assets/images/sam_phone2.jpg',
+        grade: PhoneGrade.A_GRADE,
+        likeCount: 7),
   ];
 
 // _로 시작하는건 외부에서 접근 불가. 클래스 내부에서만 사용
@@ -68,6 +72,8 @@ class ProductProvider with ChangeNotifier {
     required int price,
     required String imageUrl,
     required PhoneBrand brand,
+    required PhoneGrade grade,
+    required int likeCount,
   }) {
     final newProduct = Product(
       id: _currentID,
@@ -75,6 +81,8 @@ class ProductProvider with ChangeNotifier {
       price: price,
       imageUrl: imageUrl,
       brand: brand,
+      grade: grade,
+      likeCount: likeCount,
     );
     _products.add(newProduct);
     _currentID++;

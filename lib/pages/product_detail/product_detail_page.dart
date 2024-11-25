@@ -3,9 +3,12 @@
 import 'package:apple_market/pages/cart/cart_page.dart';
 import 'package:apple_market/pages/product_list/product/product.dart';
 import 'package:apple_market/pages/product_list/product/product_provider.dart';
+import 'package:apple_market/pages/product_list/widgets/data_utils.dart';
+import 'package:apple_market/pages/product_list/widgets/product_image.dart';
 import 'package:apple_market/pages/product_list/widgets/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:io';
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;
@@ -22,10 +25,16 @@ class ProductDetailPage extends StatelessWidget {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.red),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
           //title: Text(product.name),
           actions: [
             IconButton(
-              icon: Icon(Icons.shopping_cart_outlined),
+              icon: Icon(Icons.shopping_cart_outlined, color: Colors.red),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -34,7 +43,7 @@ class ProductDetailPage extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.person),
+              icon: const Icon(Icons.person, color: Colors.red),
               tooltip: '프로필',
               onPressed: () {
                 Navigator.push(
@@ -49,17 +58,29 @@ class ProductDetailPage extends StatelessWidget {
         bottomNavigationBar: bottomBar());
   }
 
+  Widget _buildProductImage() {
+    return product.imageUrl.startsWith('assets/') ||
+            !product.imageUrl.contains('/')
+        ? Image.asset(
+            product.imageUrl,
+            height: 400,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          )
+        : Image.file(
+            File(product.imageUrl),
+            height: 400,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          );
+  }
+
   SingleChildScrollView bodyWidget() {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(
-            product.imageUrl,
-            height: 400,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
+          _buildProductImage(),
 
           // Text('브랜드: ${product.brand.toString().split('.').last}',
           //     style: const TextStyle(fontSize: 18)),
@@ -89,12 +110,31 @@ class ProductDetailPage extends StatelessWidget {
 
           _line(),
           SizedBox(height: 16),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.end,
+          //   children: [
+          //     Text('카테고리 >', style: TextStyle(color: Colors.grey[600])),
+          //     Padding(
+          //       padding: EdgeInsets.symmetric(horizontal: 16.0),
+          //       child: Container(
+          //         padding: EdgeInsets.all(7.0),
+          //         decoration: BoxDecoration(
+          //           color: Colors.pink[100],
+          //           borderRadius: BorderRadius.circular(8),
+          //         ),
+          //         child: Text(product.brand.toString().split('.').last,
+          //             style: TextStyle(color: Colors.pink[800])),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          SizedBox(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text('카테고리 >', style: TextStyle(color: Colors.grey[600])),
+              // Text('폰상태 >', style: TextStyle(color: Colors.grey[600])),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
                 child: Container(
                   padding: EdgeInsets.all(7.0),
                   decoration: BoxDecoration(
@@ -102,6 +142,18 @@ class ProductDetailPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(product.brand.toString().split('.').last,
+                      style: TextStyle(color: Colors.pink[800])),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                child: Container(
+                  padding: EdgeInsets.all(7.0),
+                  decoration: BoxDecoration(
+                    color: Colors.pink[100],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(product.grade.toString().split('.').last,
                       style: TextStyle(color: Colors.pink[800])),
                 ),
               ),
@@ -180,7 +232,7 @@ class ProductDetailPage extends StatelessWidget {
               },
             ),
             SizedBox(width: 10),
-            Text('${product.price} 만원',
+            Text(DataUtils.calcToWon(product.price),
                 style:
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             Spacer(),

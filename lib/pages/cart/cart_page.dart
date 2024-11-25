@@ -2,6 +2,8 @@
 
 import 'package:apple_market/pages/product_detail/product_detail_page.dart';
 import 'package:apple_market/pages/product_list/product/product_provider.dart';
+import 'package:apple_market/pages/product_list/widgets/data_utils.dart';
+import 'package:apple_market/pages/product_list/widgets/product_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,18 +33,14 @@ class CartPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final product = cartProducts[index];
                 return ListTile(
-                  leading: CachedNetworkImage(
-                    imageUrl: product.imageUrl,
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.broken_image, size: 50),
-                  ),
+                  leading: ProductImage(product: product),
+                  //     placeholder: (context, url) =>
+                  //         const CircularProgressIndicator(),
+                  //     errorWidget: (context, url, error) =>
+                  //         const Icon(Icons.broken_image, size: 50),
+                  //   ),
                   title: Text(product.name),
-                  subtitle: Text('${product.price} 만원'),
+                  subtitle: Text(DataUtils.calcToWon(product.price)),
                   trailing: IconButton(
                     icon: const Icon(Icons.delete, color: Colors.red),
                     onPressed: () {
@@ -85,7 +83,7 @@ class CartPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '총 금액: $totalPrice 만원',
+              '총 금액: ${DataUtils.calcToWon(totalPrice)}',
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

@@ -1,12 +1,21 @@
 // ignore: constant_identifier_names
 enum PhoneBrand { Samsung, iPhone }
 
+enum PhoneGrade {
+  UNOPENED, // 미개봉
+  S_GRADE, // S급
+  A_GRADE, // A급
+  B_GRADE, // B급
+}
+
 class Product {
   final int id;
   final String name;
   final int price;
   final PhoneBrand brand;
   final String imageUrl;
+  final PhoneGrade grade;
+  final int likeCount;
 
   Product({
     required this.id,
@@ -14,6 +23,8 @@ class Product {
     required this.price,
     required this.brand,
     required this.imageUrl,
+    required this.grade,
+    required this.likeCount,
   });
 
 //두 상품이 같은 상품인지 판별
