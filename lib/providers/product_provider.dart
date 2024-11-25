@@ -2,7 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 
-import 'product.dart';
+import '../pages/product_list/product/product.dart';
 
 class ProductProvider with ChangeNotifier {
   int _currentID = 1;

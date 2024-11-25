@@ -3,7 +3,7 @@
 import 'package:apple_market/pages/product_list/product/product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../product_list/product/product_provider.dart';
+import '../../providers/product_provider.dart';
 
 class AddProductPage extends StatefulWidget {
   static const String routeName = '/add-product';

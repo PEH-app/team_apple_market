@@ -1,7 +1,7 @@
 // lib/product_widgets/product_tile.dart
 
 import 'package:apple_market/pages/product_list/product/product.dart';
-import 'package:apple_market/pages/product_list/product/product_provider.dart';
+import 'package:apple_market/providers/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';

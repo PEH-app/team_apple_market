@@ -23,16 +23,16 @@ class BrandDropdown extends StatelessWidget {
       ),
       value: selectedBrand,
       isExpanded: true,
-      items: [
-        const DropdownMenuItem<PhoneBrand>(
+      items: const [
+        DropdownMenuItem<PhoneBrand>(
           value: null,
           child: Text('전체 핸드폰'),
         ),
-        const DropdownMenuItem<PhoneBrand>(
+        DropdownMenuItem<PhoneBrand>(
           value: PhoneBrand.Samsung,
           child: Text('삼성폰'),
         ),
-        const DropdownMenuItem<PhoneBrand>(
+        DropdownMenuItem<PhoneBrand>(
           value: PhoneBrand.iPhone,
           child: Text('아이폰'),
         ),

@@ -3,22 +3,22 @@
 import 'package:apple_market/pages/add_product/add_product_page.dart';
 import 'package:apple_market/pages/cart/cart_page.dart';
 import 'package:apple_market/pages/product_list/product/product.dart';
-import 'package:apple_market/pages/product_list/product/product_provider.dart';
+import 'package:apple_market/providers/product_provider.dart';
 import 'package:apple_market/pages/product_list/widgets/brand_dropdown.dart';
 import 'package:apple_market/pages/product_list/widgets/product_title.dart';
 import 'package:apple_market/pages/product_list/widgets/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProjectListPage extends StatefulWidget {
-  const ProjectListPage({super.key});
+class ProductListPage extends StatefulWidget {
+  const ProductListPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
   _ProjectListPageState createState() => _ProjectListPageState();
 }
 
-class _ProjectListPageState extends State<ProjectListPage> {
+class _ProjectListPageState extends State<ProductListPage> {
   PhoneBrand? _selectedBrand;
   String _searchQuery = '';
 

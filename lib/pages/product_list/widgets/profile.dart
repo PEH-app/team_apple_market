@@ -1,7 +1,7 @@
 // lib/pages/profile/profile_page.dart
 
 import 'package:apple_market/pages/product_detail/product_detail_page.dart';
-import 'package:apple_market/pages/product_list/product/product_provider.dart';
+import 'package:apple_market/providers/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

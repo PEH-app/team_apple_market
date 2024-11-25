@@ -2,7 +2,7 @@
 
 import 'package:apple_market/pages/cart/cart_page.dart';
 import 'package:apple_market/pages/product_list/product/product.dart';
-import 'package:apple_market/pages/product_list/product/product_provider.dart';
+import 'package:apple_market/providers/product_provider.dart';
 import 'package:apple_market/pages/product_list/widgets/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +25,7 @@ class ProductDetailPage extends StatelessWidget {
           //title: Text(product.name),
           actions: [
             IconButton(
-              icon: Icon(Icons.shopping_cart_outlined),
+              icon: const Icon(Icons.shopping_cart_outlined),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -68,35 +68,37 @@ class ProductDetailPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Row(children: [
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 25,
                 backgroundImage: AssetImage('assets/images/user.png'),
               ),
-              SizedBox(width: 10),
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text('판매자닉네임',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                Text('많이 사주세요.'),
-              ]),
-              Spacer(),
+              const SizedBox(width: 10),
+              const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('판매자닉네임',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text('많이 사주세요.'),
+                  ]),
+              const Spacer(),
               OutlinedButton(
                 onPressed: () {},
-                child: Text('상점 팔로우'),
+                child: const Text('상점 팔로우'),
               ),
             ]),
           ),
 
           _line(),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text('카테고리 >', style: TextStyle(color: Colors.grey[600])),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Container(
-                  padding: EdgeInsets.all(7.0),
+                  padding: const EdgeInsets.all(7.0),
                   decoration: BoxDecoration(
                     color: Colors.pink[100],
                     borderRadius: BorderRadius.circular(8),
@@ -107,33 +109,33 @@ class ProductDetailPage extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Container(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
                   product.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 15),
-                Text(
+                const SizedBox(height: 15),
+                const Text(
                   "선물받은 새상품이고\n상품 꺼내보기만 했습니다\n거래는 직거래만 합니다.\n\n선물받은 새상품이고\n상품 꺼내보기만 했습니다\n거래는 직거래만 합니다.\n\n",
                   style: TextStyle(fontSize: 15, height: 1.5),
                 ),
-                SizedBox(height: 15),
-                Text(
+                const SizedBox(height: 15),
+                const Text(
                   "채팅 3 ∙ 조회 295",
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey,
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
               ],
             ),
           )
@@ -148,7 +150,7 @@ class ProductDetailPage extends StatelessWidget {
       final isFavorited = productProvider.favoriteProducts.contains(product);
       return Container(
         //height: 55,
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           border: Border(top: BorderSide(color: Colors.grey[350]!)),
         ),
@@ -179,11 +181,11 @@ class ProductDetailPage extends StatelessWidget {
                 }
               },
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Text('${product.price} 만원',
                 style:
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            Spacer(),
+            const Spacer(),
             ElevatedButton(
               onPressed: () {
                 productProvider.addCart(product);
@@ -194,12 +196,13 @@ class ProductDetailPage extends StatelessWidget {
                   ),
                 );
               },
-              child: Text('장바구니'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
                 foregroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               ),
+              child: const Text('장바구니'),
             ),
           ],
         ),
