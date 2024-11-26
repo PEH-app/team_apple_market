@@ -27,7 +27,7 @@ class ProductProvider with ChangeNotifier {
         name: '아이폰 13프로',
         price: 750000,
         brand: PhoneBrand.iPhone,
-        imageUrl: 'assets/images/i_phone2.jpg',
+        imageUrl: 'assets/images/i_phone2.jpeg',
         grade: PhoneGrade.S_GRADE,
         likeCount: 10),
     Product(

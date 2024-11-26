@@ -13,26 +13,22 @@ class ProductImage extends StatelessWidget {
   }
 
   Widget _buildProductImage() {
-    return Container(
-      width: 100,
-      height: 100,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: product.imageUrl.startsWith('assets/') ||
-                !product.imageUrl.contains('/')
-            ? Image.asset(
-                product.imageUrl,
-                width: 100,
-                height: 100,
-                fit: BoxFit.cover,
-              )
-            : Image.file(
-                File(product.imageUrl),
-                width: 100,
-                height: 100,
-                fit: BoxFit.cover,
-              ),
-      ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: product.imageUrl.startsWith('assets/') ||
+              !product.imageUrl.contains('/')
+          ? Image.asset(
+              product.imageUrl,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            )
+          : Image.file(
+              File(product.imageUrl),
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            ),
     );
   }
 }
