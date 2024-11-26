@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, duplicate_ignore
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/product_list/product_list_page.dart';
+import 'package:flutter_application_1/pages/login/login_page.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../login/widgets/input_field.dart';
@@ -14,24 +15,24 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  late String email, password, confirmPassword;
-  String? emailError, passwordError, confirmPasswordError;
+  late String userid, password, confirmPassword;
+  String? useridError, passwordError, confirmPasswordError;
 
   @override
   void initState() {
     super.initState();
-    email = '';
+    userid = '';
     password = '';
     confirmPassword = '';
 
-    emailError = null;
+    useridError = null;
     passwordError = null;
     confirmPasswordError = null;
   }
 
   void resetErrorText() {
     setState(() {
-      emailError = null;
+      useridError = null;
       passwordError = null;
       confirmPasswordError = null;
     });
@@ -41,12 +42,9 @@ class _RegisterPageState extends State<RegisterPage> {
     resetErrorText();
     bool isValid = true;
 
-    RegExp emailExp = RegExp(
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
-
-    if (email.isEmpty || !emailExp.hasMatch(email)) {
+    if (userid.isEmpty) {
       setState(() {
-        emailError = '유효하지 않은 이메일 주소입니다.';
+        useridError = '이메일을 입력해주세요.';
       });
       isValid = false;
     }
@@ -58,7 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
       isValid = false;
     }
 
-    if (confirmPassword.isEmpty || confirmPassword != password) {
+    if (confirmPassword != password) {
       setState(() {
         confirmPasswordError = '비밀번호가 일치하지 않습니다.';
       });
@@ -71,16 +69,36 @@ class _RegisterPageState extends State<RegisterPage> {
   void submit() async {
     if (validate()) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      bool success = await authProvider.register(email, password);
+      bool success = await authProvider.register(userid, password);
 
       if (success) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const ProductListPage()),
+        showCupertinoDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CupertinoAlertDialog(
+              title: const Text(
+                '회원가입 성공',
+              ),
+              content: const Text('회원가입이 성공적으로 완료되었습니다.'),
+              actions: [
+                CupertinoDialogAction(
+                  isDefaultAction: true,
+                  child: const Text('확인'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                    );
+                  },
+                ),
+              ],
+            );
+          },
         );
       } else {
         final error = authProvider.errorMessage;
-        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(error ?? '회원가입에 실패했습니다.')),
         );
@@ -110,11 +128,11 @@ class _RegisterPageState extends State<RegisterPage> {
             InputField(
               onChanged: (value) {
                 setState(() {
-                  email = value;
+                  userid = value;
                 });
               },
-              labelText: '이메일',
-              errorText: emailError,
+              labelText: '아이디',
+              errorText: useridError,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               autoFocus: true,
@@ -150,7 +168,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 : ElevatedButton(
                     onPressed: submit,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: const Color.fromARGB(255, 198, 100, 93),
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -160,6 +178,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       '회원가입',
                       style: TextStyle(
                         fontSize: 16.0,
+                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

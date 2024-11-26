@@ -1,5 +1,3 @@
-// lib/pages/login/login_page.dart
-
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
@@ -62,10 +60,24 @@ class _LoginPageState extends State<LoginPage> {
 
   void submit() async {
     if (validate()) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const ProductListPage()),
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+      bool success = await authProvider.login(
+        useridController.text,
+        passwordController.text,
       );
+
+      if (success) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const ProductListPage()),
+        );
+      } else {
+        final error = authProvider.errorMessage ?? '로그인에 실패했습니다.';
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error)),
+        );
+      }
     }
   }
 
@@ -101,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
               keyboardType: TextInputType.emailAddress,
               controller: useridController,
               errorText: useridError,
-              icon: Icons.email,
+              icon: Icons.person,
               onChanged: (value) {
                 if (useridError != null) {
                   setState(() {

@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/cart/cart_page.dart';
 import 'package:flutter_application_1/pages/login/login_page.dart';
 import 'package:flutter_application_1/pages/product_detail/product_detail_page.dart';
+import 'package:flutter_application_1/providers/auth_provider.dart';
 import 'package:flutter_application_1/providers/product_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +14,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    final userid = authProvider.userid ?? 'Guest';
     final favoriteProducts =
         Provider.of<ProductProvider>(context).favoriteProducts;
 
@@ -35,36 +39,38 @@ class ProfilePage extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 children: [
+                  SizedBox(
+                    width: 20,
+                  ),
                   const Icon(
                     Icons.person,
                     size: 100,
                   ),
-                  const SizedBox(width: 5),
-                  Text(
-                    ''' 사용자 이름 : 
-                    $userid ''',
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  const SizedBox(width: 30),
+                  Expanded(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                        Text(
+                          '사용자 이름:',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          userid,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 30),
+                        )
+                      ])),
                 ],
               ),
               const SizedBox(height: 20),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-                },
-                child: const Text('로그아웃'),
-              ),
               Padding(
                 padding: const EdgeInsets.only(left: 50),
                 child: Center(
@@ -131,6 +137,55 @@ class ProfilePage extends StatelessWidget {
                         },
                       ),
                     ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ]),
+                child: CupertinoButton(
+                  child: const Text(
+                    '로그아웃',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  onPressed: () {
+                    showCupertinoDialog(
+                      context: context,
+                      builder: (context) => CupertinoAlertDialog(
+                        title: const Text("로그아웃"),
+                        content: const Text("정말로 로그아웃하시겠습니까?"),
+                        actions: [
+                          CupertinoDialogAction(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text("아니요"),
+                          ),
+                          CupertinoDialogAction(
+                            isDefaultAction: true,
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginPage()),
+                              );
+                            },
+                            child: const Text(
+                              '로그아웃',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ));

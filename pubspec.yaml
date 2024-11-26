@@ -33,7 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   provider : any
   cached_network_image: any
-  http: any
+  path_provider : any
  
 
 dev_dependencies:
