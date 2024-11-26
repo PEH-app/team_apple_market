@@ -15,7 +15,7 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: InkWell(
+      child: GestureDetector(
         onTap: () {
           Navigator.push(
             context,
