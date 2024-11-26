@@ -24,62 +24,59 @@ class ProductTile extends StatelessWidget {
             ),
           );
         },
-        child: ListView(
-          shrinkWrap: true,
+        child: Padding(
           padding: const EdgeInsets.all(8.0),
-          children: [
-            Row(
-              children: [
-                ProductImage(product: product),
-                const SizedBox(width: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      product.name,
-                      style: const TextStyle(
+          child: Row(
+            children: [
+              ProductImage(product: product),
+              const SizedBox(width: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.name,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Text(product.brand.name,
+                          style:
+                              TextStyle(color: Colors.black54, fontSize: 15)),
+                      const SizedBox(width: 10),
+                      Text('|',
+                          style:
+                              TextStyle(color: Colors.black54, fontSize: 15)),
+                      const SizedBox(width: 10),
+                      Text(product.grade.name,
+                          style:
+                              TextStyle(color: Colors.black54, fontSize: 15)),
+                      const SizedBox(width: 10),
+                      Text('|',
+                          style:
+                              TextStyle(color: Colors.black54, fontSize: 15)),
+                      const SizedBox(width: 10),
+                      Icon(Icons.favorite_outline,
+                          color: Colors.black54, size: 15),
+                      const SizedBox(width: 5),
+                      Text(product.likeCount.toString(),
+                          style:
+                              TextStyle(color: Colors.black54, fontSize: 15)),
+                    ],
+                  ),
+                  Text(
+                    DataUtils.calcToWon(product.price),
+                    style: const TextStyle(
                         fontSize: 20,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Text(product.brand.name,
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 15)),
-                        const SizedBox(width: 10),
-                        Text('|',
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 15)),
-                        const SizedBox(width: 10),
-                        Text(product.grade.name,
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 15)),
-                        const SizedBox(width: 10),
-                        Text('|',
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 15)),
-                        const SizedBox(width: 10),
-                        Icon(Icons.favorite_outline,
-                            color: Colors.black54, size: 15),
-                        const SizedBox(width: 5),
-                        Text(product.likeCount.toString(),
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 15)),
-                      ],
-                    ),
-                    Text(
-                      DataUtils.calcToWon(product.price),
-                      style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
