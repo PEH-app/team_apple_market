@@ -28,18 +28,8 @@ class ProfilePage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final product = favoriteProducts[index];
                 return ListTile(
+                  minVerticalPadding: 5,
                   leading: ProductImage(product: product),
-                  // return ListTile(
-                  //   leading: CachedNetworkImage(
-                  //     imageUrl: product.imageUrl,
-                  //     width: 50,
-                  //     height: 50,
-                  //     fit: BoxFit.cover,
-                  //     placeholder: (context, url) =>
-                  //         const CircularProgressIndicator(),
-                  //     errorWidget: (context, url, error) =>
-                  //         const Icon(Icons.broken_image, size: 50),
-                  // ),
                   title: Text(product.name),
                   subtitle: Text(DataUtils.calcToWon(product.price)),
                   trailing: IconButton(

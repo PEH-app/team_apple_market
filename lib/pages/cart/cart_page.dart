@@ -31,6 +31,7 @@ class CartPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final product = cartProducts[index];
                 return ListTile(
+                  minVerticalPadding: 5,
                   leading: ProductImage(product: product),
                   title: Text(product.name),
                   subtitle: Text(DataUtils.calcToWon(product.price)),

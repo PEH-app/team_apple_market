@@ -61,7 +61,7 @@ class _AddProductPageState extends State<AddProductPage> {
                                   borderRadius: BorderRadius.circular(8),
                                   child: Image.asset(
                                     'assets/images/default_image.jpg',
-                                    height: 400,
+                                    height: 350,
                                     width: double.infinity,
                                     fit: BoxFit.cover,
                                   ),
@@ -70,7 +70,7 @@ class _AddProductPageState extends State<AddProductPage> {
                                   borderRadius: BorderRadius.circular(8),
                                   child: Image.file(
                                     File(_imageUrl),
-                                    height: 400,
+                                    height: 350,
                                     width: double.infinity,
                                     fit: BoxFit.cover,
                                   ),
@@ -98,11 +98,10 @@ class _AddProductPageState extends State<AddProductPage> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.add_a_photo, color: Colors.grey),
+                                  Icon(Icons.add_a_photo, color: Colors.black),
                                   SizedBox(width: 8),
                                   Text('사진 추가하기',
-                                      style:
-                                          TextStyle(color: Colors.grey[600])),
+                                      style: TextStyle(color: Colors.black)),
                                 ],
                               ),
                             ),
@@ -245,11 +244,9 @@ class _AddProductPageState extends State<AddProductPage> {
                     hintText:
                         '브랜드, 모델명, 구매 시기, 하자 유무 등 \n상품 설명을 최대한 자세히 적어주세요.',
                     hintStyle: TextStyle(color: Colors.grey),
-                    focusColor: Colors.red[100],
                     filled: true,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Colors.red),
                     ),
                   ),
                 ),
@@ -282,9 +279,9 @@ class _AddProductPageState extends State<AddProductPage> {
                 likeCount: 0,
               );
 
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('제품이 성공적으로 등록되었습니다.')),
-              );
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   SnackBar(content: Text('제품이 성공적으로 등록되었습니다.')),
+              // );
               Navigator.pop(context);
             }
           },

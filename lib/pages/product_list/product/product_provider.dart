@@ -11,7 +11,7 @@ class ProductProvider with ChangeNotifier {
         name: '아이폰12 mini',
         price: 1200000,
         brand: PhoneBrand.iPhone,
-        imageUrl: 'assets/images/apple_phone.jpg',
+        imageUrl: 'assets/images/i_phone1.jpg',
         grade: PhoneGrade.UNOPENED,
         likeCount: 2),
     Product(
@@ -27,7 +27,7 @@ class ProductProvider with ChangeNotifier {
         name: '아이폰 13프로',
         price: 750000,
         brand: PhoneBrand.iPhone,
-        imageUrl: 'assets/images/apple_phone.jpg',
+        imageUrl: 'assets/images/i_phone2.jpg',
         grade: PhoneGrade.S_GRADE,
         likeCount: 10),
     Product(
@@ -35,17 +35,9 @@ class ProductProvider with ChangeNotifier {
         name: '플립4 박스 올갈이',
         price: 380000,
         brand: PhoneBrand.Samsung,
-        imageUrl: 'assets/images/flip_phone.jpg',
-        grade: PhoneGrade.A_GRADE,
-        likeCount: 7),
-    Product(
-        id: 50000000,
-        name: '플립5 512g 팝니다',
-        price: 450000,
-        brand: PhoneBrand.Samsung,
         imageUrl: 'assets/images/sam_phone2.jpg',
         grade: PhoneGrade.A_GRADE,
-        likeCount: 11),
+        likeCount: 7),
   ];
 
 // _로 시작하는건 외부에서 접근 불가. 클래스 내부에서만 사용

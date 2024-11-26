@@ -13,22 +13,21 @@ class ProductImage extends StatelessWidget {
   }
 
   Widget _buildProductImage() {
-    return SizedBox(
-      width: 100,
-      height: 100,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
       child: product.imageUrl.startsWith('assets/') ||
               !product.imageUrl.contains('/')
           ? Image.asset(
               product.imageUrl,
-              // width: 100,
-              // height: 100,
-              //fit: BoxFit.cover,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
             )
           : Image.file(
               File(product.imageUrl),
-              // width: 100,
-              // height: 100,
-              // fit: BoxFit.cover,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
             ),
     );
   }
