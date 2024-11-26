@@ -48,11 +48,11 @@ class ProductProvider with ChangeNotifier {
         likeCount: 11),
     Product(
         id: 60000000,
-        name: '플립5 512g 팝니다',
-        price: 450000,
+        name: '갤럭시 울트라',
+        price: 670000,
         brand: PhoneBrand.Samsung,
-        imageUrl: 'assets/images/sam_phone3.jpg',
-        grade: PhoneGrade.A_GRADE,
+        imageUrl: 'assets/images/sam_phone4.jpg',
+        grade: PhoneGrade.B_GRADE,
         likeCount: 11),
   ];
 
